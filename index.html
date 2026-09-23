@@ -43,7 +43,7 @@
 <div class="wrap">
   <span class="badge">業務委託スタッフ募集｜未経験歓迎</span>
   <h1>どん底から、全国60店舗以上へ。<br>この仕事は、あなたの人生も変えられる。</h1>
-  <p class="lead">ありがとうエアコンお掃除専門店 代表 三浦公嗣。10分だけ、本気で話させてください。</p>
+  <p class="lead">ありがとうエアコンお掃除専門店 代表 三浦公嗣。本気で話させてください。</p>
 
   <div class="video">
     <!-- YouTube動画IDを差し替えてください（例: https://www.youtube.com/watch?v=XXXXXXXX → XXXXXXXX） -->
@@ -146,6 +146,8 @@
   <footer>ありがとうエアコンお掃除専門店 ☎ 080-4177-2272<br>© エイムポイント合同会社</footer>
 </div>
 <script>
+// 動画IDが未設定のあいだは動画枠と案内リンクを隠す（IDを入れれば自動で表示されます）
+(function(){ const f=document.querySelector('.video iframe'); if(f && /【|%E3%80%90/.test(f.getAttribute('src')||'')){ f.closest('.video').style.display='none'; const j=document.querySelector('a.jump'); if(j) j.style.display='none'; } })();
 // 面接申込の送信先（Apps Script ウェブアプリのURL）
 // 予約サイトと同じスプレッドシートの「面接申込」シートに記録されます。
 // 募集専用のスプレッドシートに分けたい場合は README.md の STEP 2 を参照。
