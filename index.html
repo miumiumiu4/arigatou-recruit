@@ -22,7 +22,7 @@
   .kv dd{margin:0}
   @media(max-width:520px){.kv{grid-template-columns:1fr}.kv dt{margin-top:8px}}
   .num{display:flex;gap:14px;align-items:flex-start;margin:12px 0}
-  .num b{flex:none;width:34px;height:34px;border-radius:50%;background:var(--accent);color:#fff;display:flex;align-items:center;justify-content:center;font-size:15px}
+  .num>b{flex:none;width:34px;height:34px;border-radius:50%;background:var(--accent);color:#fff;display:flex;align-items:center;justify-content:center;font-size:15px}
   label{display:block;font-weight:700;font-size:14px;margin:14px 0 6px}
   label small{font-weight:400;color:var(--muted)}
   input,select,textarea{width:100%;padding:12px;border:1px solid var(--line);border-radius:10px;font-size:16px;background:#fff;color:var(--ink)}
@@ -75,7 +75,7 @@
       <dt>契約形態</dt><dd>業務委託</dd>
       <dt>報酬</dt><dd><b>売上の40%</b></dd>
       <dt>経験</dt><dd>未経験歓迎（研修の内容は面接でお話しします）</dd>
-      <dt>募集地域</dt><dd>東京・神奈川・埼玉・千葉、愛知・岐阜・三重、大阪・兵庫・奈良・京都、福岡、仙台</dd>
+      <dt>募集地域</dt><dd>東京・神奈川・埼玉・千葉、愛知・岐阜・三重、大阪・兵庫・奈良・京都、福岡、長崎、仙台、札幌（その他の地域もご相談ください）</dd>
       <dt>仕事内容</dt><dd>エアコンクリーニング、ハウスクリーニング（3点セット等のオプション作業を含む）</dd>
       <dt>面接</dt><dd>候補日を3つ送っていただき、こちらで調整してご連絡します</dd>
     </dl>
@@ -103,13 +103,19 @@
           <option>東京</option><option>神奈川</option><option>埼玉</option><option>千葉</option>
           <option>愛知</option><option>岐阜</option><option>三重</option>
           <option>大阪</option><option>兵庫</option><option>奈良</option><option>京都</option>
-          <option>福岡</option><option>仙台</option>
+          <option>福岡</option><option>長崎</option><option>仙台</option><option>札幌</option><option>その他</option>
         </select></div>
-      <div><label>年代</label>
-        <select name="age"><option>20代</option><option>30代</option><option>40代</option><option>50代</option><option>60代以上</option></select></div>
+      <div><label>年齢 <small>必須</small></label><input type="number" name="age" min="18" max="99" placeholder="例：42" required></div>
     </div>
-    <label>清掃・設備関係のご経験</label>
-    <select name="experience"><option>未経験</option><option>ハウスクリーニング経験あり</option><option>エアコンクリーニング経験あり</option><option>その他の現場仕事経験あり</option></select>
+    <div class="row">
+      <div><label>性別 <small>必須</small></label>
+        <select name="gender" required>
+          <option value="">選択してください</option>
+          <option>男性</option><option>女性</option><option>その他・回答しない</option>
+        </select></div>
+      <div><label>清掃・設備関係のご経験</label>
+        <select name="experience"><option>未経験</option><option>ハウスクリーニング経験あり</option><option>エアコンクリーニング経験あり</option><option>その他の現場仕事経験あり</option></select></div>
+    </div>
     <label>面接候補日 <small>3つまで（第1希望は必須）</small></label>
     <div class="row">
       <div><input type="date" name="cand1" required></div>
@@ -137,6 +143,7 @@ f.addEventListener("submit", async e => {
   e.preventDefault();
   const btn = document.getElementById("submit"), msg = document.getElementById("msg");
   const data = Object.fromEntries(new FormData(f).entries());
+  if (data.gender) data.message = "【性別】" + data.gender + (data.message ? "\n" + data.message : "");
   data.submitted_at = new Date().toISOString();
   btn.disabled = true; btn.textContent = "送信中…";
   try {
